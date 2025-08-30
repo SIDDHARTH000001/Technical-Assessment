@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Object Detection UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f2f5;
+    }
+    form {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    input[type="file"], input[type="text"], button {
+      padding: 6px 10px;
+      margin-right: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .json-box, .image-box {
+      flex: 1 1 45%;
+      border-radius: 8px;
+      padding: 15px;
+      box-sizing: border-box;
+      max-height: 600px;
+      overflow: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .json-box {
+      background-color: #1e1e2f;
+      color: #f8f8f2;
+      font-family: monospace;
+    }
+    .json-box pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .json-box h3 {
+      color: #ff79c6;
+    }
+    .image-box {
+      background-color: #ffffff;
+      text-align: center;
+    }
+    .image-box h3 {
+      color: #4CAF50;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+    }
+    h1 {
+      color: #333;
+    }
+    p.error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload Image for Object Detection</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required />
+    Confidence threshold: <input type="text" name="conf_threshold" value="0.25" />
+    <button type="submit">Upload</button>
+  </form>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+
+  {% if result %}
+    <div class="container">
+      <div class="json-box">
+        <h3>Detection JSON</h3>
+        <pre>{{ result | tojson(indent=2) }}</pre>
+      </div>
+      <div class="image-box">
+        <h3>Annotated Image</h3>
+        {% if annotated_b64 %}
+          <img src="data:image/jpeg;base64,{{ annotated_b64 }}" />
+        {% else %}
+          <p>Annotated image not available.</p>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</body>
+</html>
