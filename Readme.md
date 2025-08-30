@@ -35,7 +35,6 @@ This project implements a **microservice-based object detection system** using Y
 ## Prerequisites
 
 * **Docker** and **Docker Compose** installed on your system.
-* Python 3.10+ 
 * Fonts: `DejaVuSans-Bold.ttf` installed in the backend for readable labels (optinal).
 
 ---
