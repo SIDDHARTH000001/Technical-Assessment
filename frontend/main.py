@@ -1,4 +1,3 @@
-# ui_backend/ui_main.py
 import os
 import base64
 from fastapi import FastAPI, Request, UploadFile, File, Form
