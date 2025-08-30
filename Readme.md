@@ -53,7 +53,7 @@ cd Technical-Assessment
 2. **Build and run all services**:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 * **Frontend UI** will be accessible at: `http://localhost:8000`
